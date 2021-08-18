@@ -4,4 +4,4 @@ Event Management
 
 #### License
 
-MIT
+MIT# GIA-Global-Events
