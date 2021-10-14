@@ -12,6 +12,7 @@ app_license = "MIT"
 # Includes in <head>
 # ------------------
 
+
 # include js, css files in header of desk.html
 # app_include_css = "/assets/gia_events/css/gia_events.css"
 # app_include_js = "/assets/gia_events/js/gia_events.js"
@@ -97,6 +98,29 @@ app_license = "MIT"
 #	}
 # }
 
+doc_events = {
+    "Request": {
+        "validate": "gia_events.api.verify",
+        #"on_update": "gia_events.api.update_lead",
+        "after_insert": "gia_events.api.designation",
+	},
+    "Lead": {
+        "on_update": "gia_events.api.insert_attendant",
+	},
+    "Attendee": {
+        "after_insert": "gia_events.api.attendee_row",
+	},
+    "Speaker": {
+        "after_insert": "gia_events.api.speaker_row",
+	},
+    "Media Partner": {
+        "after_insert": "gia_events.api.media_row",
+	},
+    "Communication": {
+        "after_insert": "gia_events.api.data_extraction",
+	},
+ }
+
 # Scheduled Tasks
 # ---------------
 
@@ -173,3 +197,15 @@ user_data_fields = [
 # 	"gia_events.auth.validate"
 # ]
 
+fixtures = [
+    {
+        "dt": "DocType",
+        "filters": [
+            [
+                "module", "in", [
+                    "Gia Events",
+                ]
+            ]
+        ]
+    },
+]

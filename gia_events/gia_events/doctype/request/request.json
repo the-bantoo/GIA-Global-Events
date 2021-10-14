@@ -1,0 +1,199 @@
+{
+ "actions": [],
+ "autoname": "REQ-.####",
+ "creation": "2021-07-29 09:16:04.150687",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "email_append_to": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "first_name",
+  "last_name",
+  "full_name",
+  "column_break_5",
+  "email_address",
+  "phone_number",
+  "country",
+  "section_break_10",
+  "company",
+  "job_title",
+  "event_name",
+  "column_break_12",
+  "industry",
+  "interest_type",
+  "type",
+  "section_break_14",
+  "short_biography",
+  "source__url",
+  "column_break_16",
+  "topics_you_would_like_to_speak_on",
+  "verification_status",
+  "amended_from",
+  "already_exists"
+ ],
+ "fields": [
+  {
+   "fieldname": "first_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "First Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "last_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Last Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email Address",
+   "options": "Email",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number",
+   "options": "Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "job_title",
+   "fieldtype": "Data",
+   "label": "Job Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "event_name",
+   "fieldtype": "Link",
+   "label": "Event Name",
+   "options": "Events"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "industry",
+   "fieldtype": "Data",
+   "label": "Industry"
+  },
+  {
+   "fieldname": "interest_type",
+   "fieldtype": "Select",
+   "label": "I would like to know more about",
+   "options": "\nSpeaking\nAttending\nSponsoring\nExhibiting"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Registration Type"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "short_biography",
+   "fieldtype": "Small Text",
+   "label": "Short Biography"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "topics_you_would_like_to_speak_on",
+   "fieldtype": "Small Text",
+   "label": "Topics you would like to speak on"
+  },
+  {
+   "fieldname": "verification_status",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Verification Status"
+  },
+  {
+   "fieldname": "source__url",
+   "fieldtype": "Data",
+   "label": "Source  URL"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Request",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "already_exists",
+   "fieldtype": "Check",
+   "label": "Already Exists"
+  }
+ ],
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2021-10-01 07:58:49.783210",
+ "modified_by": "Administrator",
+ "module": "Gia Events",
+ "name": "Request",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sender_field": "email_address",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "subject_field": "full_name",
+ "title_field": "full_name",
+ "track_changes": 1,
+ "track_seen": 1
+}

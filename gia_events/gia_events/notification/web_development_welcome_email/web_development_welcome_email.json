@@ -1,0 +1,30 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.event_name == \"Web Development\" and doc.type == 'Attendee'",
+ "creation": "2021-08-26 10:52:03.712546",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Registration",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Dear {{ doc.full_name }},\n\nWe have recieved your {{ doc.event_name }} application.",
+ "modified": "2021-08-26 10:52:03.712546",
+ "modified_by": "support@thebantoo.com",
+ "module": "Gia Events",
+ "name": "Web Development Welcome Email",
+ "owner": "support@thebantoo.com",
+ "recipients": [
+  {
+   "receiver_by_document_field": "email_address"
+  }
+ ],
+ "send_system_notification": 0,
+ "send_to_all_assignees": 0,
+ "sender": "GIA Events",
+ "sender_email": "erpnextafrica@gmail.com",
+ "subject": "Hello World"
+}

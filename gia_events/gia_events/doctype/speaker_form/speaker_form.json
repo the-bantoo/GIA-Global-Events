@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "creation": "2021-09-14 04:31:08.444848",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "html_1",
+  "section_break_2",
+  "full_name",
+  "job_title",
+  "column_break_3",
+  "company",
+  "interested_in_session",
+  "contact_information_section",
+  "email_address",
+  "corporate_phone_number",
+  "column_break_9",
+  "mobile_phone_number",
+  "country",
+  "information_for_the__brochure_section",
+  "biography",
+  "presentation_title",
+  "points",
+  "image",
+  "ts_and_cs",
+  "html_18",
+  "consent",
+  "date"
+ ],
+ "fields": [
+  {
+   "fieldname": "full_name",
+   "fieldtype": "Data",
+   "label": "Full Name"
+  },
+  {
+   "fieldname": "job_title",
+   "fieldtype": "Data",
+   "label": "Job Title"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company"
+  },
+  {
+   "fieldname": "interested_in_session",
+   "fieldtype": "Select",
+   "label": "Interested In Session",
+   "options": "\nPanel discussion\nPresentation\nWorkshop\nModeration role"
+  },
+  {
+   "fieldname": "contact_information_section",
+   "fieldtype": "Section Break",
+   "label": "Contact Information"
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address"
+  },
+  {
+   "fieldname": "corporate_phone_number",
+   "fieldtype": "Data",
+   "label": "Corporate Phone Number"
+  },
+  {
+   "fieldname": "mobile_phone_number",
+   "fieldtype": "Data",
+   "label": "Mobile Phone Number"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "information_for_the__brochure_section",
+   "fieldtype": "Section Break",
+   "label": "Information For The  Brochure"
+  },
+  {
+   "fieldname": "biography",
+   "fieldtype": "Small Text",
+   "label": "Biography (120-150 words)"
+  },
+  {
+   "fieldname": "presentation_title",
+   "fieldtype": "Data",
+   "label": "Presentation title (if you will be moderating one of the sessions, please mention the name of this session here)"
+  },
+  {
+   "fieldname": "points",
+   "fieldtype": "Small Text",
+   "label": "3-6 bullet points/lines, that describe your presentation"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Please upload your good quality portrait photo here (minimum 320 wide x 480 tall)"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ts_and_cs",
+   "fieldtype": "Section Break",
+   "label": "Terms & Conditions Acceptance"
+  },
+  {
+   "fieldname": "html_18",
+   "fieldtype": "HTML",
+   "options": "<p>In case of inability to attend the conference the speaker agrees to inform the conference producer about the cancellation in writing by email, mail, or fax not less than eight (8) weeks before the conference (by December 15, 2021). In case of such cancellation, the speaker will cooperate with event organizers to propose replacing a speaker from the same company he/she represents to make a presentation at the conference on an agreed topic.\n<br>\n<br>\n* Privacy policy:\n<br>The personal information you provide is being collected for legitimate business purposes associated with the IDTC Summit. No contact details will be shared with Third parties without your prior approval. By signing this form you agree to have your session recorded and distributed between Summit attendees.\nFor more information please visit <a href=\"https://giaglobalgroup.com/privacy\" target=\"_blank\" title=\"Privacy Statement\"><u>GIA Global Group Privacy</u>.</a></p>"
+  },
+  {
+   "default": "0",
+   "fieldname": "consent",
+   "fieldtype": "Check",
+   "label": "I consent that GIA Global Group can use my data according to the Privacy Policy"
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "html_1",
+   "fieldtype": "HTML",
+   "options": "<h3>GENERAL INFORMATION</h3>\n<p>Information from this form will be used in our event brochure, meeting platform and on the event website.\n<br>\n<br>\n* Please note that we use a company logo in our PDF brochure, which is available upon request on our event website. If you do not wish a logo to be used, please write in breaks next to the company name \"do not use the logo\".</p>"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-14 04:59:23.169875",
+ "modified_by": "Administrator",
+ "module": "Gia Events",
+ "name": "Speaker Form",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

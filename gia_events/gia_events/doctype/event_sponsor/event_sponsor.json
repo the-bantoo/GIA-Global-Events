@@ -1,0 +1,180 @@
+{
+ "actions": [],
+ "autoname": "format:Sponsor-{sponsor_name}",
+ "creation": "2021-10-10 14:16:16.937956",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sponsor_name",
+  "contact_person",
+  "sponsor_type",
+  "c1",
+  "title",
+  "email_address",
+  "phone_number",
+  "payment_details",
+  "bank_name",
+  "bank_account",
+  "c2",
+  "html_12",
+  "check",
+  "credit_card",
+  "invoice",
+  "section_break_8",
+  "country",
+  "postalzip_code",
+  "c3",
+  "city",
+  "address",
+  "sponsored_events",
+  "events"
+ ],
+ "fields": [
+  {
+   "fieldname": "sponsor_name",
+   "fieldtype": "Data",
+   "label": "Sponsor Name"
+  },
+  {
+   "fieldname": "sponsor_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Sponsor Type",
+   "options": "\nIndividual\nOrganization\nBusiness",
+   "reqd": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Select",
+   "label": "Title",
+   "options": "\nMr.\nMrs.\nMs.\nSir.\nProf.\nDr.\nHon."
+  },
+  {
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address",
+   "options": "Email"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "label": "Phone Number"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fieldname": "postalzip_code",
+   "fieldtype": "Data",
+   "label": "Postal/Zip Code"
+  },
+  {
+   "fieldname": "events",
+   "fieldtype": "Table",
+   "label": "Events",
+   "options": "Sponsored Events"
+  },
+  {
+   "fieldname": "c1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bank_name",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fieldname": "bank_account",
+   "fieldtype": "Data",
+   "label": "Bank Account"
+  },
+  {
+   "fieldname": "c2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "html_12",
+   "fieldtype": "HTML",
+   "options": "<h6>Payment Method</h6>"
+  },
+  {
+   "default": "0",
+   "fieldname": "check",
+   "fieldtype": "Check",
+   "label": "Check"
+  },
+  {
+   "default": "0",
+   "fieldname": "credit_card",
+   "fieldtype": "Check",
+   "label": "Credit Card"
+  },
+  {
+   "default": "0",
+   "fieldname": "invoice",
+   "fieldtype": "Check",
+   "label": "Invoice"
+  },
+  {
+   "fieldname": "c3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "contact_person",
+   "fieldtype": "Data",
+   "label": "Name of Contact Person"
+  },
+  {
+   "fieldname": "payment_details",
+   "fieldtype": "Section Break",
+   "label": "Payment Details"
+  },
+  {
+   "fieldname": "sponsored_events",
+   "fieldtype": "Section Break",
+   "label": "Sponsored Events"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-10-10 14:58:40.436818",
+ "modified_by": "Administrator",
+ "module": "Gia Events",
+ "name": "Event Sponsor",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

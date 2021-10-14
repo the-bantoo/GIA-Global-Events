@@ -1,0 +1,31 @@
+{
+ "attach_print": 0,
+ "channel": "Email",
+ "condition": "doc.interest_type == \"Attending\"",
+ "creation": "2021-07-29 10:14:50.346117",
+ "days_in_advance": 0,
+ "docstatus": 0,
+ "doctype": "Notification",
+ "document_type": "Request",
+ "enabled": 1,
+ "event": "New",
+ "idx": 0,
+ "is_standard": 1,
+ "message": "Hello World",
+ "modified": "2021-09-14 16:55:56.796288",
+ "modified_by": "support@thebantoo.com",
+ "module": "Gia Events",
+ "name": "Welcome Email",
+ "owner": "support@thebantoo.com",
+ "recipients": [
+  {
+   "condition": "",
+   "receiver_by_document_field": "owner"
+  }
+ ],
+ "send_system_notification": 1,
+ "send_to_all_assignees": 0,
+ "sender": "GIA Events",
+ "sender_email": "erpnextafrica@gmail.com",
+ "subject": "Welcome! You're now part of the club."
+}
