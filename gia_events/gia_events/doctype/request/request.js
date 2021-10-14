@@ -76,11 +76,11 @@ frappe.ui.form.on('Request', {
 
 frappe.ui.form.on('Request',  {
     after_save: function(frm) {
-        frappe.call({
-            method: "gia_events.api.check_lead",
-            args: {
-                'name': frm.doc.name
-            },
-	});
-    }
+		frappe.call({
+			method: 'gia_events.api.check',
+			args: {
+				name: frm.doc.name
+			}
+	})
+	}
 });

@@ -12,6 +12,27 @@ from twilio.rest import Client
 import os
 #from twilio.twiml.voice_response import VoiceResponse
 
+@frappe.whitelist()
+def call_logs():
+    account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
+    auth_token = '18a11e7a97d973d16bbe303dd4caca06'
+    client = Client(account_sid, auth_token)
+    
+    calls = client.calls.list()
+    
+    call_log = []
+    
+    for c in calls:
+        log = {
+            "from_": c.from_,
+            "to": c.to,
+            "duration": c.duration,
+            "status": c.status
+        }
+        call_log.append(log)
+        
+    return call_log
+
 @frappe.whitelist(allow_guest=True)
 def make_call(to_number):
     account_sid = "ACd5dcbba47db1d63459b8bd128f775b72"
@@ -37,10 +58,10 @@ def multiple_calls(x, y):
     )"""
 
 @frappe.whitelist(allow_guest=True)
-def answer_call():
+def answer_call(from_number):
     ignore_permissions = True
     
-    account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
+    """account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
     auth_token = '18a11e7a97d973d16bbe303dd4caca06'
     client = Client(account_sid, auth_token)
     
@@ -49,15 +70,15 @@ def answer_call():
     last_call = []
     
     for c in calls:
-        last_call.append(c.from_)
+        last_call.append(c.from_)"""
     
     #Create call log
     call_log = frappe.get_doc({
         "doctype" : "Call Log Twilio",
-        "caller_number": last_call[0]
+        "caller_number": from_number
     })
     call_log.insert(ignore_permissions=True)
-    return last_call[0]
+    #return last_call[0]
     
 
 @frappe.whitelist(allow_guest=True)
@@ -177,7 +198,7 @@ def verify(request, method):
                 i+=1
 
 
-def insert_attendant(lead, method):
+"""def insert_attendant(lead, method):
     type = ''
     if lead.workflow_state == 'Confirmed':
         if lead.type == 'Attendee':
@@ -200,7 +221,7 @@ def insert_attendant(lead, method):
             "event": lead.event
         })
         new.flags.ignore_permission = True
-        new.insert()
+        new.insert()"""
 
 
 def attendee_row(attendee, method):
@@ -317,13 +338,24 @@ def data_extraction(commuincation):
         new_request.flags.ignore_permission = True
         new_request.insert()
    
-@frappe.whitelist()    
-def check_lead(name):
-    request = frappe.get_doc('Request', name)
-    if request.workflow_state == 'Pending Verification':
+def check_lead(request, method):
+    frappe.msgprint("Hello!")
+    
+    """if request.workflow_state == 'Pending Verification':
+        frappe.msgprint("Hello")
         leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
         if len(leads) > 0:
             request.already_exists = True
             request.workflow_state = "Already Exists"
             request.flags.ignore_permission = True
-            request.save()
+            request.save()"""
+
+@frappe.whitelist()   
+def check(name):
+    request = frappe.get_doc('Request', name)
+    leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
+    if len(leads) > 0:
+        request.already_exists = True
+        request.workflow_state = "Already Exists"
+        request.flags.ignore_permission = True
+        request.save()

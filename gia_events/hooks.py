@@ -101,11 +101,11 @@ app_license = "MIT"
 doc_events = {
     "Request": {
         "validate": "gia_events.api.verify",
-        #"on_update": "gia_events.api.update_lead",
+        "after_save": "gia_events.api.check_lead",
         "after_insert": "gia_events.api.designation",
 	},
     "Lead": {
-        "on_update": "gia_events.api.insert_attendant",
+        #"on_update": "gia_events.api.insert_attendant",
 	},
     "Attendee": {
         "after_insert": "gia_events.api.attendee_row",
