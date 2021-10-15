@@ -101,7 +101,6 @@ app_license = "MIT"
 doc_events = {
     "Request": {
         "validate": "gia_events.api.verify",
-        "after_save": "gia_events.api.check_lead",
         "after_insert": "gia_events.api.designation",
 	},
     "Lead": {
@@ -117,7 +116,7 @@ doc_events = {
         "after_insert": "gia_events.api.media_row",
 	},
     "Communication": {
-        "after_insert": "gia_events.api.data_extraction",
+        #"after_insert": "gia_events.api.data_extraction",
 	},
  }
 

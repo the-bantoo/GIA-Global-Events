@@ -150,22 +150,8 @@ def new_invoice(name):
     sales_invoice.insert()
     frappe.msgprint(_("Sales Invoice Created"))
 
-
-@frappe.whitelist()
-def email_member(name):
-    attendee = frappe.get_doc("Request", name)
-    if attendee.type == 'Attendee':
-        email_member = frappe.get_doc({
-            "doctype": "Email Group Member",
-            "email_group": 'Attendees',
-            "email": attendee.email_address,
-        })
-        email_member.flags.ignore_permission = True
-        email_member.insert()
-
-
 def verify(request, method):
-    if request.workflow_state == 'Approved': #Create
+    if request.workflow_state == 'Approved': #Create Lead
         new_lead = frappe.get_doc({
             "doctype": "Lead",
             "first_name": request.first_name,
@@ -184,7 +170,8 @@ def verify(request, method):
         })
         new_lead.flags.ignore_permission = True
         new_lead.insert()
-    elif request.workflow_state == 'Already Exists': #Update
+        
+    elif request.workflow_state == 'Updated': #Update Lead
         frappe.errprint("Hi there... ")
         leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
         if len(leads) != 0:
@@ -194,11 +181,11 @@ def verify(request, method):
                 doc = frappe.get_doc('Lead', value)
                 doc.mobile_number = request.phone_number
                 doc.save()
-                frappe.msgprint("Lead Updated!")
                 i+=1
 
 
-"""def insert_attendant(lead, method):
+"""
+def insert_attendant(lead, method):
     type = ''
     if lead.workflow_state == 'Confirmed':
         if lead.type == 'Attendee':
@@ -301,7 +288,7 @@ def create_task(request, method):
         new_lead.flags.ignore_permission = True
         new_lead.insert()
 
-
+"""
 def data_extraction(commuincation):
     if commuincation.sender == "info@giaglobalgroup.com":
         email_content = commuincation.content
@@ -336,19 +323,8 @@ def data_extraction(commuincation):
             "source__url": data_list[8],
         })
         new_request.flags.ignore_permission = True
-        new_request.insert()
+        new_request.insert()"""
    
-def check_lead(request, method):
-    frappe.msgprint("Hello!")
-    
-    """if request.workflow_state == 'Pending Verification':
-        frappe.msgprint("Hello")
-        leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
-        if len(leads) > 0:
-            request.already_exists = True
-            request.workflow_state = "Already Exists"
-            request.flags.ignore_permission = True
-            request.save()"""
 
 @frappe.whitelist()   
 def check(name):
