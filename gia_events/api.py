@@ -11,17 +11,46 @@ import docx2txt
 from twilio.rest import Client
 import os
 #from twilio.twiml.voice_response import VoiceResponse
+import pytracking
+from pytracking.webhook import send_webhook
+                  
+@frappe.whitelist(allow_guest=True)
+def register_click(link):
+    url = frappe.db.exists({
+        "doctype": "Email Links",
+        "original_url": link
+    })
+    
+    frappe.db.sql("""UPDATE `tabEmail Links` SET clicked = 1 WHERE original_url=%s""", link)
+
+@frappe.whitelist(allow_guest=True)
+def em_tracking():
+    # Assumes that the webhook url is encoded in the url.
+    full_url = "https://thebantoo.com/hello"
+    tracking_result = pytracking.get_open_tracking_result(
+    full_url, base_click_tracking_url="https://thebantoo.com/retail")
+    
+    send_webhook(tracking_result)
+    
+    doc = frappe.get_doc({
+    "doctype": "ToDo",
+    "description": "My new project",
+    "status": "Open"
+    })
+    doc.flags.ignore_permission = True
+    doc.insert()
+    return "Hook working"
 
 @frappe.whitelist()
 def call_logs():
     account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
     auth_token = '18a11e7a97d973d16bbe303dd4caca06'
     client = Client(account_sid, auth_token)
-    
+
     calls = client.calls.list()
-    
+
     call_log = []
-    
+
     for c in calls:
         log = {
             "from_": c.from_,
@@ -30,21 +59,35 @@ def call_logs():
             "status": c.status
         }
         call_log.append(log)
-        
+
     return call_log
+
 
 @frappe.whitelist(allow_guest=True)
 def make_call(to_number):
-    account_sid = "ACd5dcbba47db1d63459b8bd128f775b72"
-    auth_token = "18a11e7a97d973d16bbe303dd4caca06"
+    account_sid = 'AC7c2a4056b4e47914b6c9931c6b8b902f'
+    auth_token = '44ac96267802ca99e06449f35016f01c'
     client = Client(account_sid, auth_token)
 
     call = client.calls.create(
         to=str(to_number),
-        from_="+14422526335",
+        from_="+14179224443",
         url="http://demo.twilio.com/docs/voice.xml"
     )
-    
+
+    new = frappe.get_doc({
+        "doctype": 'GIA Call Log',
+        "from": "+14179224443",
+        "to": str(to_number),
+        "type_of_call": 'Outgoing',
+        "status": call.status,
+        "duration": call.duration,
+        "date": call.date_created,
+    })
+    new.flags.ignore_permission = True
+    new.insert()
+
+
 """@frappe.whitelist(allow_guest=True)
 def multiple_calls(x, y):
     account_sid = "ACd5dcbba47db1d63459b8bd128f775b72"
@@ -57,72 +100,74 @@ def multiple_calls(x, y):
         url="http://demo.twilio.com/docs/voice.xml"
     )"""
 
+
 @frappe.whitelist(allow_guest=True)
 def answer_call(from_number):
     ignore_permissions = True
-    
+
     """account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
     auth_token = '18a11e7a97d973d16bbe303dd4caca06'
     client = Client(account_sid, auth_token)
-    
+
     calls = client.calls.list(limit=1)
-    
+
     last_call = []
-    
+
     for c in calls:
         last_call.append(c.from_)"""
-    
-    #Create call log
+
+    # Create call log
     call_log = frappe.get_doc({
-        "doctype" : "Call Log Twilio",
+        "doctype": "Call Log Twilio",
         "caller_number": from_number
     })
     call_log.insert(ignore_permissions=True)
-    #return last_call[0]
-    
+    # return last_call[0]
+
 
 @frappe.whitelist(allow_guest=True)
 def check_number(phone_number):
     ignore_permissions = True
-    
+
     account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
     auth_token = '18a11e7a97d973d16bbe303dd4caca06'
     client = Client(account_sid, auth_token)
-    
+
     calls = client.calls.list(limit=1)
-    
+
     last_call = []
-    
+
     for c in calls:
         last_call.append(c.from_)
-        
+
     return last_call[0]
-    
+
     number_exists = frappe.db.exists({
         'doctype': 'Contact Phone',
         'phone': phone_number
     })
-    
+
     if not number_exists:
-        #Contact doesn't, create new
-        
+        # Contact doesn't, create new
+
         doc = frappe.get_doc({
             "doctype": "Contact",
             "first_name": "Unkown",
         })
-        
+
         doc.insert(ignore_permissions=True)
-        
+
         row = doc.append("phone_nos", {
             "phone": phone_number
         })
-        
+
         row.insert(ignore_permissions=True)
         return "Strange number"
-        
+
     else:
         return "Number exists"
-        
+
+
 @frappe.whitelist()
 def new_invoice(name):
     lead = frappe.get_doc('Lead', name)
@@ -150,8 +195,9 @@ def new_invoice(name):
     sales_invoice.insert()
     frappe.msgprint(_("Sales Invoice Created"))
 
+
 def verify(request, method):
-    if request.workflow_state == 'Approved': #Create Lead
+    if request.workflow_state == 'Approved':  # Create Lead
         new_lead = frappe.get_doc({
             "doctype": "Lead",
             "first_name": request.first_name,
@@ -170,10 +216,11 @@ def verify(request, method):
         })
         new_lead.flags.ignore_permission = True
         new_lead.insert()
-        
-    elif request.workflow_state == 'Updated': #Update Lead
+
+    elif request.workflow_state == 'Updated':  # Update Lead
         frappe.errprint("Hi there... ")
-        leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
+        leads = frappe.get_all(
+            'Lead', filters={'email_id': request.email_address}, fields=['name'])
         if len(leads) != 0:
             i = 0
             while i < len(leads):
@@ -181,7 +228,7 @@ def verify(request, method):
                 doc = frappe.get_doc('Lead', value)
                 doc.mobile_number = request.phone_number
                 doc.save()
-                i+=1
+                i += 1
 
 
 """
@@ -263,7 +310,7 @@ def designation(request, method):
         new_designation.insert()
     else:
         pass
-    
+
     countries = frappe.get_all('Country', fields=['name'])
     name = {'name': request.country}
     if name not in countries:
@@ -288,16 +335,15 @@ def create_task(request, method):
         new_lead.flags.ignore_permission = True
         new_lead.insert()
 
-"""
-def data_extraction(commuincation):
-    if commuincation.sender == "info@giaglobalgroup.com":
-        email_content = commuincation.content
-        x = json.dumps(email_content)
-        data = x.replace('<br>', ' ')
 
-        pattern = {"first_name": "First Name\:(.*?)Last",
-                   "last_name": "Last Name\:(.*?)Job",
-                   "job_title": "Title\:(.*?)Company",
+def data_extraction(communication, method):
+    email_content = communication.content
+    x = json.dumps(email_content)
+    data = x.replace('<br>', ' ')
+
+    pattern = {"first_name": "First Name\:(.*?)Last",
+                 "last_name": "Last Name\:(.*?)Job",
+                 "job_title": "Title\:(.*?)Company",
                    "company_name": "Company\:(.*?)Email",
                    "email": "Email\:(.*?)Business",
                    "phone_number": "Phone\:(.*?)Country",
@@ -305,33 +351,64 @@ def data_extraction(commuincation):
                    "interest_type": "about\:(.*?)Acceptance",
                    "source": "URL\:(.*?)User"}
 
-        data_list = []
-        for value in pattern.values():
-            result = re.search(value, data).group(1)
-            data_list.append(result)
+    data_list = []
+    for value in pattern.values():
+        result = re.search(value, data).group(1)
+        data_list.append(result)
 
-        new_request = frappe.get_doc({
-            "doctype": "Request",
-            "first_name": data_list[0],
-            "last_name": data_list[1],
-            "job_title": data_list[2],
-            "company": data_list[3],
-            "email_address": data_list[4],
-            "phone_number": data_list[5],
-            "country": data_list[6],
-            "interest_type": data_list[7],
-            "source__url": data_list[8],
-        })
-        new_request.flags.ignore_permission = True
-        new_request.insert()"""
-   
+    new_request = frappe.get_doc({
+        "doctype": "Request",
+        "first_name": data_list[0],
+        "last_name": data_list[1],
+        "job_title": data_list[2],
+        "company": data_list[3],
+        "email_address": data_list[4],
+        "phone_number": data_list[5],
+        "country": data_list[6],
+        "interest_type": data_list[7],
+        "source__url": data_list[8],
+    })
+    new_request.flags.ignore_permission = True
+    new_request.insert()
 
-@frappe.whitelist()   
+
+@frappe.whitelist()
 def check(name):
     request = frappe.get_doc('Request', name)
-    leads = frappe.get_all('Lead', filters={'email_id': request.email_address}, fields=['name'])
+    leads = frappe.get_all(
+        'Lead', filters={'email_id': request.email_address}, fields=['name'])
     if len(leads) > 0:
         request.already_exists = True
         request.workflow_state = "Already Exists"
         request.flags.ignore_permission = True
         request.save()
+
+    
+"""def add_links(communciation, method):
+    patterns = {"link": "href\=\"(.*?)\" rel"}
+    for pattern in patterns.values():
+        result = re.findall(pattern, communciation.content)
+        for link in result:
+            row = communciation.append("email_links", {
+                "link_id": "https://giaevents.thebantoo.com/email-tracking?link=" + link,
+                "original_url": link
+                })
+            row.insert()"""
+            
+            
+def update_link(communication, method):
+    data = communication.content
+    patterns = {"link": "href\=\"(.*?)\" rel"}
+
+    for pattern in patterns.values():
+        result = re.findall(pattern, data)
+        for link in result:
+            tracking_link = "https://giaevents.thebantoo.com/email-tracking?link=" + link
+            data = data.replace(link, tracking_link)
+            communication.content = data
+            row = communication.append("email_links", {
+                "link_id": tracking_link,
+                "original_url": link
+                })
+            row.insert()
+            communication.save()

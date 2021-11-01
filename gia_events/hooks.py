@@ -117,6 +117,10 @@ doc_events = {
 	},
     "Communication": {
         #"after_insert": "gia_events.api.data_extraction",
+        "after_insert": "gia_events.api.update_link",
+	},
+    "Test Email Campaign": {
+        "after_insert": "gia_events.api.add_links",
 	},
  }
 
