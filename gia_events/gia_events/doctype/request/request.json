@@ -29,7 +29,9 @@
   "topics_you_would_like_to_speak_on",
   "verification_status",
   "amended_from",
-  "already_exists"
+  "status",
+  "already_exists",
+  "type_of_request"
  ],
  "fields": [
   {
@@ -163,11 +165,22 @@
    "fieldname": "already_exists",
    "fieldtype": "Check",
    "label": "Already Exists"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nAlready Exists\nPending Verification\nApproved\nSpam\nUpdated"
+  },
+  {
+   "fieldname": "type_of_request",
+   "fieldtype": "Data",
+   "label": "Type Of Request"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-10-01 07:58:49.783210",
+ "modified": "2021-11-27 18:43:49.345050",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Request",

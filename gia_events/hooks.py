@@ -100,8 +100,8 @@ app_license = "MIT"
 
 doc_events = {
     "Request": {
-        "validate": "gia_events.api.verify",
-        "after_insert": "gia_events.api.designation",
+        "after_insert": "gia_events.api.check",
+        "validate": "gia_events.api.verify"
 	},
     "Lead": {
         #"on_update": "gia_events.api.insert_attendant",
@@ -116,7 +116,6 @@ doc_events = {
         "after_insert": "gia_events.api.media_row",
 	},
     "Communication": {
-        #"after_insert": "gia_events.api.data_extraction",
         "after_insert": "gia_events.api.update_link",
 	},
     "Test Email Campaign": {
