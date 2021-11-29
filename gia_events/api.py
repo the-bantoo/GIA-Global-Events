@@ -7,12 +7,11 @@ import requests
 import json
 from frappe.utils import today
 import re
-import docx2txt
 from twilio.rest import Client
 import os
-#from twilio.twiml.voice_response import VoiceResponse
-import pytracking
-from pytracking.webhook import send_webhook
+from twilio.twiml.voice_response import VoiceResponse
+#import pytracking
+#from pytracking.webhook import send_webhook
                 
 @frappe.whitelist(allow_guest=True)
 def register_click(link):
@@ -36,7 +35,7 @@ def read_receipt(em_id):
     doc = frappe.get_doc("Communication", em_id)
     doc.read_by_recipient = 1
     doc.save()
-
+"""
 @frappe.whitelist(allow_guest=True)
 def em_tracking():
     # Assumes that the webhook url is encoded in the url.
@@ -54,7 +53,7 @@ def em_tracking():
     doc.flags.ignore_permission = True
     doc.insert()
     return "Hook working"
-
+"""
 @frappe.whitelist()
 def call_logs():
     account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
