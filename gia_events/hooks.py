@@ -301,13 +301,7 @@ fixtures = [
             [
                 "name", "in", [
                     "Welcome Email",
-                    "New Lead",
-                    "Deadline Reminder",
-                    "New Responsible Person",
-                    "Rectification Notification",
-                    "Data Rectified (Goes to data subject)",
-                    "Data Successfully Erased",
-                    "Welcome Email"
+                    "New Lead"
                 ]
             ],
         ]
@@ -344,8 +338,7 @@ fixtures = [
         "filters": [
             [
                 "name", "in", [
-                    "GIA Events",
-                    "GDPR Compliance"
+                    "GIA Events"
                 ]
             ],
         ]
@@ -357,7 +350,6 @@ fixtures = [
             [
                 "name", "in", [
                     "Lead-Form",
-                    "Rectification Request-Form",
                     "Contact-Form",
                     "Call Log GIA-Form",
                 ]
