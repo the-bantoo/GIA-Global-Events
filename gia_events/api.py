@@ -204,32 +204,6 @@ def new_invoice(name):
     sales_invoice.insert()
     frappe.msgprint(_("Sales Invoice Created"))
 
-"""
-def insert_attendant(lead, method):
-    type = ''
-    if lead.workflow_state == 'Confirmed':
-        if lead.type == 'Attendee':
-            type = 'Attendee'
-        elif lead.type == 'Speaker':
-            type = 'Speaker'
-        elif lead.type == 'Media':
-            type = 'Media'
-        else:
-            type = 'Sponsor'
-
-        new = frappe.get_doc({
-            "doctype": type,
-            "first_name": lead.first_name,
-            "last_name": lead.last_name,
-            "full_name": lead.lead_name,
-            "email_address": lead.email_id,
-            "country": lead.country,
-            "phone_number": lead.mobile_number,
-            "event": lead.event
-        })
-        new.flags.ignore_permission = True
-        new.insert()"""
-
 def attendee_row(attendee, method):
     event = frappe.get_doc('Events', attendee.event)
     row = event.append("attendees", {
@@ -357,3 +331,29 @@ def verify(request, method):
                     })
                 row.insert(ignore_permissions=True)
                 i += 1
+
+"""
+def insert_attendant(lead, method):
+    type = ''
+    if lead.workflow_state == 'Confirmed':
+        if lead.type == 'Attendee':
+            type = 'Attendee'
+        elif lead.type == 'Speaker':
+            type = 'Speaker'
+        elif lead.type == 'Media':
+            type = 'Media'
+        else:
+            type = 'Sponsor'
+
+        new = frappe.get_doc({
+            "doctype": type,
+            "first_name": lead.first_name,
+            "last_name": lead.last_name,
+            "full_name": lead.lead_name,
+            "email_address": lead.email_id,
+            "country": lead.country,
+            "phone_number": lead.mobile_number,
+            "event": lead.event
+        })
+        new.flags.ignore_permission = True
+        new.insert()"""

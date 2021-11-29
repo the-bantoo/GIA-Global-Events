@@ -1,0 +1,249 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Workflow",
+  "document_type": "Lead",
+  "is_active": 1,
+  "modified": "2021-11-28 18:33:22.149651",
+  "name": "Verify Lead",
+  "override_status": 0,
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "send_email_alert": 1,
+  "states": [
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Contact Lead",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Send Form",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Sign Form",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Confirmed",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Cancelled",
+    "update_field": null,
+    "update_value": null
+   },
+   {
+    "allow_edit": "System Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Verify Lead",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Verify Attendance",
+    "update_field": null,
+    "update_value": null
+   }
+  ],
+  "transitions": [
+   {
+    "action": "Call/Email",
+    "allow_self_approval": 1,
+    "allowed": "System Manager",
+    "condition": null,
+    "next_state": "Verify Attendance",
+    "parent": "Verify Lead",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Contact Lead"
+   },
+   {
+    "action": "Confirmed",
+    "allow_self_approval": 1,
+    "allowed": "System Manager",
+    "condition": null,
+    "next_state": "Confirmed",
+    "parent": "Verify Lead",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Verify Attendance"
+   },
+   {
+    "action": "Cancelled",
+    "allow_self_approval": 1,
+    "allowed": "System Manager",
+    "condition": null,
+    "next_state": "Cancelled",
+    "parent": "Verify Lead",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Verify Attendance"
+   }
+  ],
+  "workflow_name": "Verify Lead",
+  "workflow_state_field": "workflow_state"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow",
+  "document_type": "Request",
+  "is_active": 1,
+  "modified": "2021-11-28 06:54:37.071268",
+  "name": "Request Verification",
+  "override_status": 0,
+  "parent": null,
+  "parentfield": null,
+  "parenttype": null,
+  "send_email_alert": 1,
+  "states": [
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Request Verification",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Pending Verification",
+    "update_field": "",
+    "update_value": null
+   },
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Request Verification",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Spam",
+    "update_field": "",
+    "update_value": null
+   },
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Request Verification",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Approved",
+    "update_field": "",
+    "update_value": null
+   },
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "0",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Request Verification",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Already Exists",
+    "update_field": "",
+    "update_value": null
+   },
+   {
+    "allow_edit": "Accounts Manager",
+    "doc_status": "1",
+    "is_optional_state": 0,
+    "message": null,
+    "next_action_email_template": null,
+    "parent": "Request Verification",
+    "parentfield": "states",
+    "parenttype": "Workflow",
+    "state": "Updated",
+    "update_field": "",
+    "update_value": null
+   }
+  ],
+  "transitions": [
+   {
+    "action": "Update Record",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": "doc.already_exists == True",
+    "next_state": "Updated",
+    "parent": "Request Verification",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Already Exists"
+   },
+   {
+    "action": "Approve",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": "doc.already_exists == False",
+    "next_state": "Approved",
+    "parent": "Request Verification",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Pending Verification"
+   },
+   {
+    "action": "Reject",
+    "allow_self_approval": 1,
+    "allowed": "Accounts Manager",
+    "condition": "doc.already_exists == False",
+    "next_state": "Spam",
+    "parent": "Request Verification",
+    "parentfield": "transitions",
+    "parenttype": "Workflow",
+    "state": "Pending Verification"
+   }
+  ],
+  "workflow_name": "Request Verification",
+  "workflow_state_field": "workflow_state"
+ }
+]

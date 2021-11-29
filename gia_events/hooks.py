@@ -210,4 +210,159 @@ fixtures = [
             ]
         ]
     },
+    {
+        "dt": "Workflow State",
+        "filters": [
+            [
+                "name", "in", [
+                    "Already Exists",
+                    "Updated",
+                    "Verify Attendance",
+                    "Clarification",
+                    "Email/Call",
+                    "Send Form",
+                    "Sign Form",
+                    "Confirmed",
+                    "Contact Lead",
+                    "Cancelled",
+                    "Pending Verification",
+                    "Spam",
+                    "Rejected",
+                    "Approved",
+                    "Pending"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Workflow",
+        "filters": [
+            [
+                "name", "in", [
+                    "Verify Lead",
+                    "Request Verification"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Custom Field",
+        "filters": [
+            [
+                "name", "in", [
+                    "Lead-company_size",
+                    "Lead-linkedin_profile_link",
+                    "Lead-t",
+                    "Lead-whatsapp_phone_number",
+                    "Lead-number_of_linkedin_followers",
+                    "Lead-company_details",
+                    "Sales Order-deal_details",
+                    "Sales Order-deal_value",
+                    "Sales Order-deal_detail",
+                    "Sales Order-starting_date",
+                    "Lead-project",
+                    "Lead-first_name",
+                    "Lead-last_name",
+                    "Lead-region",
+                    "Lead-segmentation",
+                    "Lead-segmentation_no_1",
+                    "Lead-column_break_22",
+                    "Lead-segmentation_details",
+                    "Lead-segmentation_2",
+                    "Lead-segmentation_status",
+                    "Lead-deal_value",
+                    "Lead-event",
+                    "Sales Invoice-event",
+                    "Email Group-event",
+                    "Email Group-hidden",
+                    "Email Group-recipient_type",
+                    "Email Group Member-event",
+                    "Email Group-purpose",
+                    "Lead-workflow_state",
+                    "Lead-mobile_number",
+                    "ToDo-subject",
+                    "Communication-gia",
+                    "Communication-newsletter",
+                    "Communication-communication_status",
+                    "Communication-email_links",
+                    "Request-workflow_state",
+                    "Lead-lead_requests",
+                    "Lead-requests"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Notification",
+        "filters": [
+            [
+                "name", "in", [
+                    "Welcome Email",
+                    "New Lead",
+                    "Deadline Reminder",
+                    "New Responsible Person",
+                    "Rectification Notification",
+                    "Data Rectified (Goes to data subject)",
+                    "Data Successfully Erased",
+                    "Welcome Email"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Report",
+        "filters": [
+            [
+                "name", "in", [
+                    "Event Attendance",
+                    "Speaker Attendance",
+                    "Media Partner Attendance",
+                    "Event Sponsors",
+                    "Email Analytics"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Dashboard Chart",
+        "filters": [
+            [
+                "name", "in", [
+                    "Request Forms"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Workspace",
+        "filters": [
+            [
+                "name", "in", [
+                    "GIA Events",
+                    "GDPR Compliance"
+                ]
+            ],
+        ]
+
+    },
+    {
+        "dt": "Client Script",
+        "filters": [
+            [
+                "name", "in", [
+                    "Lead-Form",
+                    "Rectification Request-Form",
+                    "Contact-Form",
+                    "Call Log GIA-Form",
+                ]
+            ],
+        ]
+
+    },
 ]
