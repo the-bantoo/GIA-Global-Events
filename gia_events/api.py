@@ -10,8 +10,8 @@ import re
 from twilio.rest import Client
 import os
 from twilio.twiml.voice_response import VoiceResponse
-#import pytracking
-#from pytracking.webhook import send_webhook
+import pytracking
+from pytracking.webhook import send_webhook
                 
 @frappe.whitelist(allow_guest=True)
 def register_click(link):
@@ -331,21 +331,11 @@ def verify(request, method):
                 row.insert(ignore_permissions=True)
                 i += 1
 
-"""
 def insert_attendant(lead, method):
-    type = ''
     if lead.workflow_state == 'Confirmed':
-        if lead.type == 'Attendee':
-            type = 'Attendee'
-        elif lead.type == 'Speaker':
-            type = 'Speaker'
-        elif lead.type == 'Media':
-            type = 'Media'
-        else:
-            type = 'Sponsor'
 
         new = frappe.get_doc({
-            "doctype": type,
+            "doctype": lead.type,
             "first_name": lead.first_name,
             "last_name": lead.last_name,
             "full_name": lead.lead_name,
@@ -355,4 +345,4 @@ def insert_attendant(lead, method):
             "event": lead.event
         })
         new.flags.ignore_permission = True
-        new.insert()"""
+        new.insert()
