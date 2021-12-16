@@ -10,10 +10,16 @@ def get_context(context):
         request_status = True
     else:
         request_status = False
-     
-    speaker_request = frappe.get_doc({
+    
+    #check the type of interest.
+    if data['fields[more_about][value]'] == "Attending":
+        interest = "Attendee"
+    else:
+        interest = "Exhibitor"
+    
+    free_request = frappe.get_doc({
         "doctype": "Request",
-        "request_type": "Speaker Request",
+        "request_type": "Free Virtual Guest Request",
         "event_name": data['fields[event_name][value]'],
         "already_exists": request_status,
         "first_name": data['fields[f_name][value]'],
@@ -26,9 +32,8 @@ def get_context(context):
         "phone_number": data['fields[phone][value]'],
         "country": data['fields[country][value]'],
         "interest_type": data['fields[more_about][value]'],
-        "type": "Speaker"
-        #"speaker_bio": data['fields[speaker_bio][value]'],
-        #"topic": data['fields[topic][value]'],
+        "type": interest,
+        "payment_status": "Free"
         })
-    speaker_request.insert(ignore_permissions=True)
+    free_request.insert(ignore_permissions=True)
     return context

@@ -11,32 +11,19 @@ def get_context(context):
     else:
         request_status = False
     
-    #Check what type of request the data is for.
-    if data['fields[request_type][value]'] == "Brochure Request":
-        form_type = "Brochure Request"
-    elif data['fields[request_type][value]'] == "Event Request":
-        form_type = "Event Request"
-    elif data['fields[request_type][value]'] == "Webinar Recording":
-        form_type = "Webinar Recording Request"
-    elif data['fields[request_type][value]'] == "Discount Request":
-        form_type = "Discount Request"
-    
     #check the type of interest.
-    if data['fields[more_about][value]'] == "Speaking":
-        interest = "Speaker"
-    elif data['fields[more_about][value]'] == "Attending":
+    if data['fields[more_about][value]'] == "Attending":
         interest = "Attendee"
-    elif data['fields[more_about][value]'] == "Sponsoring":
-        interest = "Sponsor"
-    elif data['fields[more_about][value]'] == "Exhibiting":
+    else:
         interest = "Exhibitor"
     
     paid_request = frappe.get_doc({
         "doctype": "Request",
-        "type_of_request": form_type,
-        "subject": data['fields[subject][value]'],
+        "request_type": "Paid Request",
+        "event_name": data['fields[event_name][value]'],
         "already_exists": request_status,
         "first_name": data['fields[f_name][value]'],
+        "newsletter": data['fields[acceptance][value]'],
         "last_name": data['fields[l_name][value]'],
         "full_name": data['fields[f_name][value]'] + " " + data['fields[l_name][value]'],
         "job_title": data['fields[job_title][value]'],
@@ -47,8 +34,6 @@ def get_context(context):
         "interest_type": data['fields[more_about][value]'],
         "type": interest,
         "payment_status": "Paid",
-        "speaker_bio": data['fields[more_about][value]'],
-        "topic": data['fields[more_about][value]']
         })
     paid_request.insert(ignore_permissions=True)
     return context

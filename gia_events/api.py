@@ -104,8 +104,8 @@ def make_call(to_number):
 
 """@frappe.whitelist(allow_guest=True)
 def multiple_calls(x, y):
-    account_sid = "AC08b2f021b83fd703956482e282465250"
-    auth_token = "0398c5a132e40cb82adaa35c5a92c4ba"
+    account_sid = ""
+    auth_token = ""
     client = Client(account_sid, auth_token)
 
     call = client.calls.create(
@@ -117,17 +117,6 @@ def multiple_calls(x, y):
 @frappe.whitelist(allow_guest=True)
 def answer_call(from_number):
     ignore_permissions = True
-
-    """account_sid = 'AC08b2f021b83fd703956482e282465250'
-    auth_token = '6ca871ed95e428dfea6045e25a807b35'
-    client = Client(account_sid, auth_token)
-
-    calls = client.calls.list(limit=1)
-
-    last_call = []
-
-    for c in calls:
-        last_call.append(c.from_)"""
 
     # Create call log
     call_log = frappe.get_doc({

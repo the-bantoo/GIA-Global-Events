@@ -23,16 +23,13 @@
   "interest_type",
   "type",
   "request_type",
-  "section_break_14",
-  "short_biography",
-  "source__url",
-  "column_break_16",
-  "topics_you_would_like_to_speak_on",
-  "verification_status",
   "payment_status",
+  "section_break_14",
+  "speaker_bio",
+  "column_break_16",
+  "topic",
   "already_exists",
-  "type_of_request",
-  "subject",
+  "newsletter",
   "amended_from"
  ],
  "fields": [
@@ -100,9 +97,8 @@
   },
   {
    "fieldname": "event_name",
-   "fieldtype": "Link",
-   "label": "Event Name",
-   "options": "Events"
+   "fieldtype": "Data",
+   "label": "Event Name"
   },
   {
    "fieldname": "column_break_12",
@@ -129,45 +125,14 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "short_biography",
-   "fieldtype": "Small Text",
-   "label": "Short Biography"
-  },
-  {
    "fieldname": "column_break_16",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "topics_you_would_like_to_speak_on",
-   "fieldtype": "Small Text",
-   "label": "Topics you would like to speak on"
-  },
-  {
-   "fieldname": "verification_status",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "Verification Status"
-  },
-  {
-   "fieldname": "source__url",
-   "fieldtype": "Data",
-   "label": "Source  URL"
   },
   {
    "default": "0",
    "fieldname": "already_exists",
    "fieldtype": "Check",
    "label": "Already Exists"
-  },
-  {
-   "fieldname": "type_of_request",
-   "fieldtype": "Data",
-   "label": "Type Of Request"
-  },
-  {
-   "fieldname": "subject",
-   "fieldtype": "Data",
-   "label": "Subject"
   },
   {
    "fieldname": "amended_from",
@@ -188,12 +153,28 @@
    "fieldname": "request_type",
    "fieldtype": "Select",
    "label": "Type of Request",
-   "options": "\nBrochure Request\nSponsor Request\nSpeaker Request\nPaid Registration\nFree Guest Registration\nFree Virtual Guest Registration\nSpeaker Form"
+   "options": "\nBrochure Request\nSponsor Request\nSpeaker Request\nPaid Request\nFree Guest Request\nFree Virtual Guest Request\nSpeaker Request"
+  },
+  {
+   "default": "0",
+   "fieldname": "newsletter",
+   "fieldtype": "Data",
+   "label": "Newsletter"
+  },
+  {
+   "fieldname": "speaker_bio",
+   "fieldtype": "Small Text",
+   "label": "Short Biography"
+  },
+  {
+   "fieldname": "topic",
+   "fieldtype": "Small Text",
+   "label": "Topics you would like to speak on"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-12-16 05:21:22.641365",
+ "modified": "2021-12-16 11:45:12.082747",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Request",
