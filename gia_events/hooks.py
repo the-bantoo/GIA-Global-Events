@@ -104,13 +104,13 @@ doc_events = {
         "validate": "gia_events.api.verify"
 	},
     "Lead": {
-        #"on_update": "gia_events.api.insert_attendant",
-	},
-    "Attendee": {
-        "after_insert": "gia_events.api.attendee_row",
+        "validate": "gia_events.api.insert_attendee",
 	},
     "Speaker": {
         "after_insert": "gia_events.api.speaker_row",
+	},
+    "Event Sponsor": {
+        "after_insert": "gia_events.api.sponsor_row",
 	},
     "Media Partner": {
         "after_insert": "gia_events.api.media_row",
@@ -118,6 +118,12 @@ doc_events = {
     "Communication": {
         "after_insert": "gia_events.api.update_link",
 	},
+    "Newsletter": {
+        "after_insert": "gia_events.api.update_link_newsletter",
+    },
+    "Email Queue": {
+        "after_insert": "gia_events.api.add_pixel_tracker",
+    },
     "Test Email Campaign": {
         "after_insert": "gia_events.api.add_links",
 	},

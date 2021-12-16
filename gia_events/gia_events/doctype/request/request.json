@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "REQ-.####",
- "creation": "2021-07-29 09:16:04.150687",
+ "creation": "2021-12-11 09:29:34.591726",
  "doctype": "DocType",
  "editable_grid": 1,
  "email_append_to": 1,
@@ -18,19 +18,22 @@
   "company",
   "job_title",
   "event_name",
-  "column_break_12",
   "industry",
+  "column_break_12",
   "interest_type",
   "type",
+  "request_type",
   "section_break_14",
   "short_biography",
   "source__url",
   "column_break_16",
   "topics_you_would_like_to_speak_on",
   "verification_status",
-  "status",
+  "payment_status",
   "already_exists",
-  "type_of_request"
+  "type_of_request",
+  "subject",
+  "amended_from"
  ],
  "fields": [
   {
@@ -157,20 +160,40 @@
    "label": "Already Exists"
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "\nAlready Exists\nPending Verification\nApproved\nSpam\nUpdated"
-  },
-  {
    "fieldname": "type_of_request",
    "fieldtype": "Data",
    "label": "Type Of Request"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Request",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "payment_status",
+   "fieldtype": "Select",
+   "label": "Payment Status",
+   "options": "\nFree\nPaid"
+  },
+  {
+   "fieldname": "request_type",
+   "fieldtype": "Select",
+   "label": "Type of Request",
+   "options": "\nBrochure Request\nSponsor Request\nSpeaker Request\nPaid Registration\nFree Guest Registration\nFree Virtual Guest Registration\nSpeaker Form"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-11-29 09:15:30.756575",
+ "modified": "2021-12-16 05:21:22.641365",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Request",

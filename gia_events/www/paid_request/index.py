@@ -14,8 +14,8 @@ def get_context(context):
     #Check what type of request the data is for.
     if data['fields[request_type][value]'] == "Brochure Request":
         form_type = "Brochure Request"
-    elif data['fields[request_type][value]'] == "Attendance/Participation Request":
-        form_type = "Attendance/Participation Request"
+    elif data['fields[request_type][value]'] == "Event Request":
+        form_type = "Event Request"
     elif data['fields[request_type][value]'] == "Webinar Recording":
         form_type = "Webinar Recording Request"
     elif data['fields[request_type][value]'] == "Discount Request":
@@ -31,9 +31,10 @@ def get_context(context):
     elif data['fields[more_about][value]'] == "Exhibiting":
         interest = "Exhibitor"
     
-    new_request = frappe.get_doc({
+    paid_request = frappe.get_doc({
         "doctype": "Request",
         "type_of_request": form_type,
+        "subject": data['fields[subject][value]'],
         "already_exists": request_status,
         "first_name": data['fields[f_name][value]'],
         "last_name": data['fields[l_name][value]'],
@@ -44,7 +45,10 @@ def get_context(context):
         "phone_number": data['fields[phone][value]'],
         "country": data['fields[country][value]'],
         "interest_type": data['fields[more_about][value]'],
-        "type": interest
+        "type": interest,
+        "payment_status": "Paid",
+        "speaker_bio": data['fields[more_about][value]'],
+        "topic": data['fields[more_about][value]']
         })
-    new_request.insert(ignore_permissions=True)
+    paid_request.insert(ignore_permissions=True)
     return context

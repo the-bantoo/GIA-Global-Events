@@ -1,7 +1,7 @@
 {
  "actions": [],
- "autoname": "format:Sponsor-{sponsor_name}",
- "creation": "2021-10-10 14:16:16.937956",
+ "autoname": "sponsor_name",
+ "creation": "2021-12-11 09:29:35.845259",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -155,7 +155,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-10 14:58:40.436818",
+ "modified": "2021-12-12 20:46:45.136972",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Event Sponsor",

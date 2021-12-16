@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "field:event_name",
- "creation": "2021-08-24 17:57:54.741280",
+ "creation": "2021-12-11 09:29:38.222323",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -12,14 +12,8 @@
   "level",
   "status",
   "column_break_4",
+  "welcome_email_template",
   "company",
-  "event_website",
-  "email__groups_and_templates_section",
-  "speaker_email_group",
-  "attendee_email_group",
-  "column_break_12",
-  "media_email_group",
-  "sponsor_email_group",
   "date_and_time_section",
   "from_date",
   "to_date",
@@ -35,7 +29,9 @@
   "event_attendees_section",
   "attendees",
   "event_media_section",
-  "media"
+  "media",
+  "sponsors",
+  "sponsor"
  ],
  "fields": [
   {
@@ -81,45 +77,6 @@
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company"
-  },
-  {
-   "fieldname": "event_website",
-   "fieldtype": "Data",
-   "label": "Event Website"
-  },
-  {
-   "collapsible": 1,
-   "fieldname": "email__groups_and_templates_section",
-   "fieldtype": "Section Break",
-   "label": "Email  Groups And Templates"
-  },
-  {
-   "fieldname": "speaker_email_group",
-   "fieldtype": "Link",
-   "label": "Speaker Email Group",
-   "options": "Email Group"
-  },
-  {
-   "fieldname": "attendee_email_group",
-   "fieldtype": "Link",
-   "label": "Attendee Email Group",
-   "options": "Email Group"
-  },
-  {
-   "fieldname": "column_break_12",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "media_email_group",
-   "fieldtype": "Link",
-   "label": "Media Email Group",
-   "options": "Email Group"
-  },
-  {
-   "fieldname": "sponsor_email_group",
-   "fieldtype": "Link",
-   "label": "Sponsor Email Group",
-   "options": "Email Group"
   },
   {
    "collapsible": 1,
@@ -201,13 +158,33 @@
    "collapsible": 1,
    "fieldname": "event_media_section",
    "fieldtype": "Section Break",
-   "label": "Event Media"
+   "label": "Media Partners"
   },
   {
    "fieldname": "media",
    "fieldtype": "Table",
    "label": "Media",
    "options": "Media Table"
+  },
+  {
+   "fieldname": "welcome_email_template",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Welcome Email Template",
+   "options": "Email Template",
+   "reqd": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "sponsors",
+   "fieldtype": "Section Break",
+   "label": "Event Sponsors"
+  },
+  {
+   "fieldname": "sponsor",
+   "fieldtype": "Table",
+   "label": "Sponsor",
+   "options": "Sponsor Table"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -238,7 +215,7 @@
    "link_fieldname": "event"
   }
  ],
- "modified": "2021-08-29 10:04:03.710198",
+ "modified": "2021-12-13 17:35:53.738722",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Events",

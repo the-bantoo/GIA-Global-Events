@@ -20,19 +20,20 @@ def register_click(link):
         "original_url": link
     })
     frappe.errprint(url)    
-    frappe.log(url)
+    frappe.errprint(url[0])
+    #original_url = frappe.db.sql("""SELECT original_url FROM `tabEmail Links` WHERE """)
     #Get current click count
-    click_count = frappe.db.sql("""SELECT click_rate FROM `tabEmail Links` WHERE name IN %s """, url)
+    click_count = frappe.db.sql("""SELECT click_rate FROM `tabEmail Links` WHERE name=%s """, url[0])
     
     if click_count != None:
         next_count = click_count[0][0] + 1
         #return next_count
     
         return frappe.db.sql("""UPDATE `tabEmail Links` SET clicked = 1, click_rate = %s WHERE original_url=%s""", (next_count, link))
-    
+
 @frappe.whitelist(allow_guest=True)
 def read_receipt(em_id):
-    doc = frappe.get_doc("Communication", em_id)
+    doc = frappe.get_doc("Email Queue", em_id)
     doc.read_by_recipient = 1
     doc.save()
 """
@@ -56,8 +57,8 @@ def em_tracking():
 """
 @frappe.whitelist()
 def call_logs():
-    account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
-    auth_token = '18a11e7a97d973d16bbe303dd4caca06'
+    account_sid = frappe.db.get_single_value("Twilio Settings", "twilio_account_sid")
+    auth_token = frappe.db.get_single_value("Twilio Settings", "twilio_auth_token")
     client = Client(account_sid, auth_token)
 
     calls = client.calls.list()
@@ -77,19 +78,20 @@ def call_logs():
 
 @frappe.whitelist(allow_guest=True)
 def make_call(to_number):
-    account_sid = 'AC7c2a4056b4e47914b6c9931c6b8b902f'
-    auth_token = '44ac96267802ca99e06449f35016f01c'
+    account_sid = frappe.db.get_single_value("Twilio Settings", "twilio_account_sid")
+    auth_token = frappe.db.get_single_value("Twilio Settings", "twilio_auth_token")
+    number = frappe.db.get_single_value("Twilio Settings", "twilio_number")
     client = Client(account_sid, auth_token)
 
     call = client.calls.create(
         to=str(to_number),
-        from_="+14179224443",
+        from_=str(number),
         url="http://demo.twilio.com/docs/voice.xml"
     )
 
     new = frappe.get_doc({
         "doctype": 'GIA Call Log',
-        "from": "+14179224443",
+        "from": str(number),
         "to": str(to_number),
         "type_of_call": 'Outgoing',
         "status": call.status,
@@ -97,12 +99,13 @@ def make_call(to_number):
         "date": call.date_created,
     })
     new.flags.ignore_permission = True
+    frappe.msgprint("Calling 📞")
     new.insert()
 
 """@frappe.whitelist(allow_guest=True)
 def multiple_calls(x, y):
-    account_sid = "ACd5dcbba47db1d63459b8bd128f775b72"
-    auth_token = "18a11e7a97d973d16bbe303dd4caca06"
+    account_sid = "AC08b2f021b83fd703956482e282465250"
+    auth_token = "0398c5a132e40cb82adaa35c5a92c4ba"
     client = Client(account_sid, auth_token)
 
     call = client.calls.create(
@@ -115,8 +118,8 @@ def multiple_calls(x, y):
 def answer_call(from_number):
     ignore_permissions = True
 
-    """account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
-    auth_token = '18a11e7a97d973d16bbe303dd4caca06'
+    """account_sid = 'AC08b2f021b83fd703956482e282465250'
+    auth_token = '6ca871ed95e428dfea6045e25a807b35'
     client = Client(account_sid, auth_token)
 
     calls = client.calls.list(limit=1)
@@ -138,8 +141,8 @@ def answer_call(from_number):
 def check_number(phone_number):
     ignore_permissions = True
 
-    account_sid = 'ACd5dcbba47db1d63459b8bd128f775b72'
-    auth_token = '18a11e7a97d973d16bbe303dd4caca06'
+    account_sid = frappe.db.get_single_value("Twilio Settings", "twilio_account_sid")
+    auth_token = frappe.db.get_single_value("Twilio Settings", "twilio_auth_token")
     client = Client(account_sid, auth_token)
 
     calls = client.calls.list(limit=1)
@@ -202,41 +205,17 @@ def new_invoice(name):
     })
     sales_invoice.insert()
     frappe.msgprint(_("Sales Invoice Created"))
-
-def attendee_row(attendee, method):
-    event = frappe.get_doc('Events', attendee.event)
-    row = event.append("attendees", {
-        "attendee_name": attendee.email_address,
-        "status": "Invited"
-    })
-    row.insert()
-
-def speaker_row(speaker, method):
-    event = frappe.get_doc('Events', speaker.event)
-    row = event.append("speakers", {
-        "speaker_name": speaker.email_address,
-        "status": "Invited"
-    })
-    row.insert()
-
-def media_row(media, method):
-    event = frappe.get_doc('Events', media.event)
-    row = event.append("media", {
-        "media_name": media.email_address,
-        "status": "Invited"
-    })
-    row.insert()
                
 def update_link(communication, method):
-    data = communication.content
+    data = communication.message
     patterns = {"link": "href\=\"(.*?)\" rel"}
 
     for pattern in patterns.values():
         result = re.findall(pattern, data)
         for link in result:
-            tracking_link = "https://giaevents.thebantoo.com/email-tracking?link=" + link
+            tracking_link = str(frappe.utils.get_url()) + "/email-tracking?link=" + link
             data = data.replace(link, tracking_link)
-            communication.content = data
+            communication.message = data
             row = communication.append("email_links", {
                 "link_id": tracking_link,
                 "original_url": link
@@ -244,8 +223,48 @@ def update_link(communication, method):
             row.insert()
             communication.save()
             
-    communication.content += '<img src="https://script.google.com/macros/s/AKfycbxGKeREVNWPvAzApaqVDVeuJVfLB1TCs_VS2XZJqV3EA-b8ieeTzMCUBmAYtQx1_ovZ/exec?email_id=%s" height="1" width="1" />' % communication.name
+    communication.message += '<img src="https://script.google.com/macros/s/AKfycbxJUkxR-xCwSHtGh04r3hvQyzcytLRCGwFwyovD3WZvVawx8WI/exec?email_id=%s" height="1" width="1" />' % communication.name
     communication.save()
+
+def update_link_newsletter(newsletter, method):
+    data = newsletter.message
+    patterns = {"link": "href\=\"(.*?)\" rel"}
+
+    for pattern in patterns.values():
+        result = re.findall(pattern, data)
+        for link in result:
+            tracking_link = str(frappe.utils.get_url()) + "/email-tracking?link=" + link
+            data = data.replace(link, tracking_link)
+            newsletter.message = data
+            row = newsletter.append("email_links", {
+                "link_id": tracking_link,
+                "original_url": link
+                })
+            row.insert()
+            newsletter.save()
+            
+    #newsletter.message += '<img src="https://script.google.com/macros/s/AKfycbxJUkxR-xCwSHtGh04r3hvQyzcytLRCGwFwyovD3WZvVawx8WI/exec?email_id=%s" height="1" width="1" />' % newsletter.name
+    #newsletter.save()
+
+def add_pixel_tracker(email_queue, method):
+    email_queue.message += '<img src="https://script.google.com/macros/s/AKfycbxJUkxR-xCwSHtGh04r3hvQyzcytLRCGwFwyovD3WZvVawx8WI/exec?email_id=%s" height="1" width="1" />' % email_queue.name
+
+    #Add email links
+    if email_queue.reference_doctype == "Newsletter":
+        newsletter_name = frappe.get_doc("Newsletter", email_queue.reference_name)
+
+        #Empty table to avoid duplicates
+        email_queue.email_links.clear()
+
+        for link in newsletter_name.email_links:
+            email_queue.append("email_links", {
+                "link_id": link.link_id,
+                "original_url": link.original_url,
+                "clicked": link.clicked,
+                "click_rate": link.click_rate
+            })
+
+    email_queue.save()
    
 def check(request, method):
     if frappe.db.exists({'doctype': 'Lead', 'email_id': request.email_address}):
@@ -284,6 +303,7 @@ def verify(request, method):
             
         new_lead = frappe.get_doc({
             "doctype": "Lead",
+            "event": request.event_name,
             "first_name": request.first_name,
             "last_name": request.last_name,
             "lead_name": request.full_name,
@@ -308,7 +328,7 @@ def verify(request, method):
                 "type": "Send Brochure",
                 "expected_start_date": today(),
                 "subject": "Send Brochure",
-                "description": str(request.full_name) + " would like a brochure, Request ID: " + str(request.name) + " Email ID: " + str(request.email_address)
+                "description": str(request.full_name) + " would like a brochure for " + str(request.subject) + " Request ID: " + str(request.name) + " Email ID: " + str(request.email_address)
                 })
             new_task.insert(ignore_permissions=True)
         
@@ -331,7 +351,7 @@ def verify(request, method):
                 row.insert(ignore_permissions=True)
                 i += 1
 
-def insert_attendant(lead, method):
+def insert_attendee(lead, method):
     if lead.workflow_state == 'Confirmed':
 
         new = frappe.get_doc({
@@ -342,7 +362,50 @@ def insert_attendant(lead, method):
             "email_address": lead.email_id,
             "country": lead.country,
             "phone_number": lead.mobile_number,
-            "event": lead.event
+            "event": lead.event,
+            "company": lead.company_name,
+            "job_title": lead.designation
         })
         new.flags.ignore_permission = True
         new.insert()
+        if not new:
+            frappe.throw("Attendee could not be added")
+        frappe.db.commit()
+        insert_event_attendee(lead.email_id, lead.event)
+
+def insert_event_attendee(attendee_email, event):
+    event = frappe.get_doc('Events', event)
+    row = event.append("attendees", {
+        "attendee_name": attendee_email,
+        "status": "Invited"
+    })
+    row.insert()
+    if not row:
+        frappe.msgprint("The attendee was created but not added to the event, please add them manually")
+
+def speaker_row(speaker, method):
+    event = frappe.get_doc('Events', speaker.event)
+    row = event.append("speakers", {
+        "speaker_name": speaker.name,
+        "location": speaker.country,
+        "status": "Invited"
+    })
+    row.insert()
+
+def media_row(media, method):
+    event = frappe.get_doc('Events', media.event)
+    row = event.append("media", {
+        "media_name": media.name,
+        "status": "Invited",
+        "location": media.country
+    })
+    row.insert()
+
+def sponsor_row(sponsor, method):
+    event = frappe.get_doc('Events', sponsor.event)
+    row = event.append("media", {
+        "sponsor_name": sponsor.sponsor_name,
+        "location": sponsor.country
+    })
+    row.insert()
+    

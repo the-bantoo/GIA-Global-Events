@@ -8,14 +8,12 @@ def execute(filters=None):
 	return get_columns(), get_data(filters)
 
 def get_data(filters):
-    data = frappe.db.sql("""SELECT parent, COUNT(speaker_name), COUNT(CASE payment_status WHEN 'Paid' THEN 1 ELSE NULL END), COUNT(CASE payment_status WHEN 'Free' THEN 1 ELSE NULL END), location FROM `tabSpeaker Table` GROUP BY location;""")
+    data = frappe.db.sql("""SELECT parent, COUNT(speaker_name), location FROM `tabSpeaker Table` GROUP BY location;""")
     return data
 
 def get_columns():
     return [
         "Event: Data",
 		"Number Of Speakers: Data",
-		"Paid Attendance: Data",
-		"Free Attendance: Data",
 		"Location: Data"
 	]

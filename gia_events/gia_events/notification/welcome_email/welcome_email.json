@@ -12,7 +12,7 @@
  "idx": 0,
  "is_standard": 1,
  "message": "Add your message here",
- "modified": "2021-11-21 08:09:40.975247",
+ "modified": "2021-12-12 09:04:47.042213",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Welcome Email",
@@ -24,7 +24,7 @@
  ],
  "send_system_notification": 1,
  "send_to_all_assignees": 0,
- "sender": "GIA Global Group",
- "sender_email": "test@giaglobalgroup.com",
- "subject": "Welcome! You're now part of the club {{ doc.full_name }}"
+ "sender": "GIA Testing",
+ "sender_email": "erp@thebantoo.com",
+ "subject": "Thank you for registering for {{ doc.event_name }}"
 }
