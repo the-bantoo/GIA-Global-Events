@@ -5,35 +5,31 @@ from frappe.utils import today
 def get_context(context):
     context.name = "Administrator"
     data = frappe.form_dict
-    
-    if frappe.db.exists({'doctype': 'Lead', 'email_id': data['fields[email][value]']}):
+
+    if frappe.db.exists({'doctype': 'Lead', 'email_id': data["paymentEmail"]}):
         request_status = True
     else:
         request_status = False
     
-    #check the type of interest.
-    if data['fields[more_about][value]'] == "Attending":
-        interest = "Attendee"
-    else:
-        interest = "Exhibitor"
-    
     paid_request = frappe.get_doc({
         "doctype": "Request",
         "request_type": "Paid Request",
-        "event_name": data['fields[event_name][value]'],
+        "event_name": data["eventTitle"],
         "already_exists": request_status,
-        "first_name": data['fields[f_name][value]'],
-        "newsletter": data['fields[acceptance][value]'],
-        "last_name": data['fields[l_name][value]'],
-        "full_name": data['fields[f_name][value]'] + " " + data['fields[l_name][value]'],
-        "job_title": data['fields[job_title][value]'],
-        "company": data['fields[company][value]'],
-        "email_address": data['fields[email][value]'],
-        "phone_number": data['fields[phone][value]'],
-        "country": data['fields[country][value]'],
-        "interest_type": data['fields[more_about][value]'],
-        "type": interest,
-        "payment_status": "Paid",
+        "first_name": data["paymentFirstName"],
+        "last_name": data["paymentLastName"],
+        "full_name": data["paymentFirstName"] + " " + data["paymentLastName"],
+        "email_address": data["paymentEmail"],
+        "interest_type": "Attending",
+        "type": "Attendee",
+        "payment_status": "Paid"
         })
     paid_request.insert(ignore_permissions=True)
     return context
+
+
+i = 0
+while i < ticketnum:
+    "first_name": data["paymentFirstName"] + i
+    
+i++

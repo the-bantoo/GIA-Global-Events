@@ -10,6 +10,11 @@ def get_context(context):
         request_status = True
     else:
         request_status = False
+
+    if data['fields[acceptance][value]'] == "on":
+        acceptance = True
+    else:
+        acceptance = False
      
     speaker_request = frappe.get_doc({
         "doctype": "Request",
@@ -17,7 +22,7 @@ def get_context(context):
         "event_name": data['fields[event_name][value]'],
         "already_exists": request_status,
         "first_name": data['fields[f_name][value]'],
-        "newsletter": data['fields[acceptance][value]'],
+        "newsletter": acceptance,
         "last_name": data['fields[l_name][value]'],
         "full_name": data['fields[f_name][value]'] + " " + data['fields[l_name][value]'],
         "job_title": data['fields[job_title][value]'],
@@ -26,9 +31,9 @@ def get_context(context):
         "phone_number": data['fields[phone][value]'],
         "country": data['fields[country][value]'],
         "interest_type": data['fields[more_about][value]'],
-        "type": "Speaker"
-        #"speaker_bio": data['fields[speaker_bio][value]'],
-        #"topic": data['fields[topic][value]'],
+        "type": "Speaker",
+        "speaker_bio": str(data['fields[speaker_bio][value]']),
+        "topic": str(data['fields[topic][value]'])
         })
     speaker_request.insert(ignore_permissions=True)
     return context

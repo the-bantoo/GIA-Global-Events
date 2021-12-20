@@ -8,8 +8,10 @@
  "engine": "InnoDB",
  "field_order": [
   "full_name",
+  "event_name",
   "company_name",
   "corporate_email",
+  "newsletter",
   "amended_from"
  ],
  "fields": [
@@ -42,12 +44,23 @@
    "options": "Discount Request",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "default": "true",
+   "fieldname": "newsletter",
+   "fieldtype": "Check",
+   "label": "Newsletter Subscription"
+  },
+  {
+   "fieldname": "event_name",
+   "fieldtype": "Data",
+   "label": "Event Name"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2021-12-15 13:03:42.910749",
+ "modified": "2021-12-20 07:16:25.603116",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Discount Request",

@@ -10,15 +10,18 @@
   "first_name",
   "last_name",
   "full_name",
-  "column_break_5",
   "email_address",
+  "column_break_5",
+  "corporate_number",
   "phone_number",
   "country",
+  "profile_image",
   "section_break_10",
   "company",
   "job_title",
   "event_name",
   "industry",
+  "interested_session",
   "column_break_12",
   "interest_type",
   "type",
@@ -26,9 +29,12 @@
   "payment_status",
   "section_break_14",
   "speaker_bio",
+  "bullet_points",
   "column_break_16",
   "topic",
   "already_exists",
+  "terms_conditions",
+  "data_concent",
   "newsletter",
   "amended_from"
  ],
@@ -37,15 +43,13 @@
    "fieldname": "first_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "First Name",
-   "reqd": 1
+   "label": "First Name"
   },
   {
    "fieldname": "last_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Last Name",
-   "reqd": 1
+   "label": "Last Name"
   },
   {
    "fieldname": "full_name",
@@ -62,21 +66,18 @@
    "in_list_view": 1,
    "label": "Email Address",
    "options": "Email",
-   "reqd": 1,
    "search_index": 1
   },
   {
    "fieldname": "phone_number",
    "fieldtype": "Data",
-   "label": "Phone Number",
-   "options": "Phone",
-   "reqd": 1
+   "label": "Mobile Phone Number",
+   "options": "Phone"
   },
   {
    "fieldname": "country",
    "fieldtype": "Data",
-   "label": "Country",
-   "reqd": 1
+   "label": "Country"
   },
   {
    "fieldname": "section_break_10",
@@ -86,14 +87,12 @@
    "fieldname": "company",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Company",
-   "reqd": 1
+   "label": "Company"
   },
   {
    "fieldname": "job_title",
    "fieldtype": "Data",
-   "label": "Job Title",
-   "reqd": 1
+   "label": "Job Title"
   },
   {
    "fieldname": "event_name",
@@ -158,8 +157,8 @@
   {
    "default": "0",
    "fieldname": "newsletter",
-   "fieldtype": "Data",
-   "label": "Newsletter"
+   "fieldtype": "Check",
+   "label": "Newsletter Subscription"
   },
   {
    "fieldname": "speaker_bio",
@@ -170,11 +169,43 @@
    "fieldname": "topic",
    "fieldtype": "Small Text",
    "label": "Topics you would like to speak on"
+  },
+  {
+   "default": "0",
+   "fieldname": "terms_conditions",
+   "fieldtype": "Check",
+   "label": "Terms & Conditions"
+  },
+  {
+   "default": "0",
+   "fieldname": "data_concent",
+   "fieldtype": "Check",
+   "label": "Data Concent"
+  },
+  {
+   "fieldname": "corporate_number",
+   "fieldtype": "Data",
+   "label": "Corporate Phone Number"
+  },
+  {
+   "fieldname": "profile_image",
+   "fieldtype": "Attach Image",
+   "label": "Please upload your good quality portrait photo here (minimum 320 wide x 480 tall"
+  },
+  {
+   "fieldname": "bullet_points",
+   "fieldtype": "Small Text",
+   "label": "3-6 bullet points/lines, that describe your presentation"
+  },
+  {
+   "fieldname": "interested_session",
+   "fieldtype": "Data",
+   "label": "Interested in session (at the event):"
   }
  ],
  "is_submittable": 1,
  "links": [],
- "modified": "2021-12-16 11:45:12.082747",
+ "modified": "2021-12-20 10:48:29.142656",
  "modified_by": "Administrator",
  "module": "Gia Events",
  "name": "Request",

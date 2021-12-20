@@ -115,9 +115,6 @@ doc_events = {
     "Media Partner": {
         "after_insert": "gia_events.api.media_row",
 	},
-    "Communication": {
-        "after_insert": "gia_events.api.update_link",
-	},
     "Newsletter": {
         "after_insert": "gia_events.api.update_link_newsletter",
     },

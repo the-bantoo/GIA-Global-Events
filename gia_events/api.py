@@ -195,8 +195,8 @@ def new_invoice(name):
     sales_invoice.insert()
     frappe.msgprint(_("Sales Invoice Created"))
                
-def update_link(communication, method):
-    data = communication.message
+"""def update_link(communication, method):
+    data = communication.content
     patterns = {"link": "href\=\"(.*?)\" rel"}
 
     for pattern in patterns.values():
@@ -204,7 +204,7 @@ def update_link(communication, method):
         for link in result:
             tracking_link = str(frappe.utils.get_url()) + "/email-tracking?link=" + link
             data = data.replace(link, tracking_link)
-            communication.message = data
+            communication.content = data
             row = communication.append("email_links", {
                 "link_id": tracking_link,
                 "original_url": link
@@ -212,8 +212,8 @@ def update_link(communication, method):
             row.insert()
             communication.save()
             
-    communication.message += '<img src="https://script.google.com/macros/s/AKfycbxJUkxR-xCwSHtGh04r3hvQyzcytLRCGwFwyovD3WZvVawx8WI/exec?email_id=%s" height="1" width="1" />' % communication.name
-    communication.save()
+    communication.content += '<img src="https://script.google.com/macros/s/AKfycbxJUkxR-xCwSHtGh04r3hvQyzcytLRCGwFwyovD3WZvVawx8WI/exec?email_id=%s" height="1" width="1" />' % communication.name
+    communication.save()"""
 
 def update_link_newsletter(newsletter, method):
     data = newsletter.message
@@ -310,14 +310,14 @@ def verify(request, method):
             })
         new_lead.insert(ignore_permissions=True)
         
-        if request.type_of_request == "Brochure Request":
+        if request.request_type == "Brochure Request":
             new_task = frappe.get_doc({
                 "doctype": "Task",
                 "Priority": "High",
-                "type": "Send Brochure",
+                "type": "Brochure Request",
                 "expected_start_date": today(),
                 "subject": "Send Brochure",
-                "description": str(request.full_name) + " would like a brochure for " + str(request.subject) + " Request ID: " + str(request.name) + " Email ID: " + str(request.email_address)
+                "description": str(request.full_name) + " would like a brochure for " + str(request.event_name) + " Request ID: " + str(request.name) + " Email ID: " + str(request.email_address)
                 })
             new_task.insert(ignore_permissions=True)
         

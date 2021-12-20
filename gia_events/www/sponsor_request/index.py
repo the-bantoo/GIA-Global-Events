@@ -10,14 +10,19 @@ def get_context(context):
         request_status = True
     else:
         request_status = False
+
+    if data['fields[acceptance][value]'] == "on":
+        acceptance = True
+    else:
+        acceptance = False
      
-    paid_request = frappe.get_doc({
+    sponsor_request = frappe.get_doc({
         "doctype": "Request",
         "request_type": "Sponsor Request",
         "event_name": data['fields[event_name][value]'],
         "already_exists": request_status,
         "first_name": data['fields[f_name][value]'],
-        "newsletter": data['fields[acceptance][value]'],
+        "newsletter": acceptance,
         "last_name": data['fields[l_name][value]'],
         "full_name": data['fields[f_name][value]'] + " " + data['fields[l_name][value]'],
         "job_title": data['fields[job_title][value]'],
@@ -28,5 +33,5 @@ def get_context(context):
         "interest_type": data['fields[more_about][value]'],
         "type": "Sponsor"
         })
-    paid_request.insert(ignore_permissions=True)
+    sponsor_request.insert(ignore_permissions=True)
     return context
